@@ -15,8 +15,7 @@
     
     <!-- Icons (Keep this in your HTML head) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</html>
-<link rel="stylesheet" href="index.css">
+
     <script>
         tailwind.config = {
             theme: {
@@ -78,10 +77,45 @@
             scrollbar-width: none;
         }
 
+        /* * RESPONSIVE MEDIA QUERIES 
+         * Custom sizing for decorative elements that Tailwind utilities 
+         * might not cover precisely for specific animations/shapes.
+         */
+        
+        /* Base styles (Mobile First) */
+        .responsive-orbit-inner {
+            width: 220px;
+            height: 220px;
+        }
+        .responsive-orbit-outer {
+            width: 280px;
+            height: 280px;
+        }
+        .responsive-hero-img {
+            width: 12rem; /* approx 192px */
+            height: 12rem;
+        }
+
+        /* Tablet & Desktop Overrides (min-width: 768px matches Tailwind 'md') */
+        @media (min-width: 768px) {
+            .responsive-orbit-inner {
+                width: 300px;
+                height: 300px;
+            }
+            .responsive-orbit-outer {
+                width: 380px;
+                height: 380px;
+            }
+            .responsive-hero-img {
+                width: 20rem; /* approx 320px */
+                height: 20rem;
+            }
+        }
+
         /* --- END CSS FILE --- */
     </style>
 </head>
-<body class="bg-dark text-slate-800 font-sans selection:bg-cyan-300 selection:text-slate-900">
+<body class="bg-dark text-slate-800 font-sans selection:bg-cyan-300 selection:text-slate-900 overflow-x-hidden">
 
     <!-- Mobile Nav Overlay (Hidden by default) -->
     <div id="mobile-menu" class="fixed inset-0 bg-dark/95 z-50 transform translate-x-full transition-transform duration-300 flex flex-col items-center justify-center space-y-8 text-white text-2xl">
@@ -92,11 +126,19 @@
         <a href="#projects" class="hover:text-cyan-400 transition-colors" onclick="toggleMenu()">Projects</a>
         <a href="#skills" class="hover:text-cyan-400 transition-colors" onclick="toggleMenu()">Skills</a>
         <a href="#contact" class="hover:text-cyan-400 transition-colors" onclick="toggleMenu()">Contact</a>
+        <a href="#contact" class="mt-4 px-6 py-3 bg-cyan-400 text-slate-900 rounded-full font-bold hover:bg-cyan-300 transition-colors" onclick="toggleMenu()">
+            Download Resume
+        </a>
     </div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 min-h-screen">
         
         <!-- MAIN GRID LAYOUT -->
+        <!-- 
+            Grid Responsiveness:
+            - Mobile (default): grid-cols-1 (Everything stacks vertically)
+            - Large Screens (lg): grid-cols-12 (Complex dashboard layout)
+        -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
             <!-- 1. HERO CARD (Spans full width top) -->
@@ -107,8 +149,8 @@
 
                 <!-- Navbar inside Hero -->
                 <nav class="flex justify-between items-center mb-16 relative z-10">
-                    <div class="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
-                        <span class="bg-slate-900 text-white w-10 h-10 flex items-center justify-center rounded-lg"><i class="fas fa-robot"></i></span>
+                    <div class="text-xl md:text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
+                        <span class="bg-slate-900 text-white w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-lg"><i class="fas fa-robot text-sm md:text-base"></i></span>
                         ANIRUDH MK.
                     </div>
                     
@@ -131,18 +173,19 @@
                 <!-- Hero Content -->
                 <div class="grid md:grid-cols-2 gap-12 items-center relative z-10">
                     <div class="space-y-6">
-                        <div class="inline-block px-3 py-1 bg-white/40 backdrop-blur-sm rounded-full text-xs font-bold tracking-wider text-slate-700 uppercase">
+                        <div class="inline-block px-3 py-1 bg-white/40 backdrop-blur-sm rounded-full text-[10px] md:text-xs font-bold tracking-wider text-slate-700 uppercase">
                             Available for Hire
                         </div>
-                        <h1 class="text-5xl md:text-7xl font-extrabold leading-[1.1] text-slate-900">
+                        <!-- Responsive Font Sizes: text-4xl (Mobile) -> sm:text-5xl (Tablet) -> md:text-7xl (Desktop) -->
+                        <h1 class="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[1.1] text-slate-900">
                             Engineering <br>
                             <span class="relative inline-block">
                                 Hardware
-                                <svg class="absolute w-full h-3 -bottom-1 left-0 text-slate-900" viewBox="0 0 200 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.00024 7.00004C50.0002 2.00005 150.003 -3.99996 198.003 3.00004" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+                                <svg class="absolute w-full h-2 md:h-3 -bottom-1 left-0 text-slate-900" viewBox="0 0 200 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.00024 7.00004C50.0002 2.00005 150.003 -3.99996 198.003 3.00004" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
                             </span>
                              & Soft<span class="text-slate-600">ware.</span>
                         </h1>
-                        <p class="text-lg text-slate-700 max-w-md font-medium">
+                        <p class="text-base md:text-lg text-slate-700 max-w-md font-medium">
                             I bridge the gap between code and machines. CS Student specializing in Robotics, Drones, and Full-Stack Development.
                         </p>
                         
@@ -158,22 +201,22 @@
                     </div>
 
                     <!-- Hero Visual (The Circle Portrait) -->
-                    <div class="relative flex justify-center md:justify-end">
-                        <!-- Orbital Rings -->
-                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] border border-slate-900/10 rounded-full"></div>
-                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] border border-slate-900/10 rounded-full orbit-circle">
+                    <div class="relative flex justify-center md:justify-end mt-8 md:mt-0">
+                        <!-- Orbital Rings with Custom CSS Classes for Responsive sizing -->
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 responsive-orbit-inner border border-slate-900/10 rounded-full"></div>
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 responsive-orbit-outer border border-slate-900/10 rounded-full orbit-circle">
                             <div class="absolute -top-1.5 left-1/2 w-3 h-3 bg-slate-900 rounded-full"></div>
                         </div>
 
-                        <!-- Main Image Container -->
-                        <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white/30 shadow-2xl floating bg-slate-200 flex items-center justify-center">
+                        <!-- Main Image Container with Custom CSS Classes -->
+                        <div class="relative responsive-hero-img rounded-full overflow-hidden border-4 border-white/30 shadow-2xl floating bg-slate-200 flex items-center justify-center">
                              <!-- Using a robotic placeholder since no photo provided, fits the "Tech" theme -->
-                             <i class="fas fa-microchip text-9xl text-slate-400/50"></i>
+                             <i class="fas fa-microchip text-7xl md:text-9xl text-slate-400/50"></i>
                              <div class="absolute inset-0 bg-gradient-to-tr from-slate-900/20 to-transparent"></div>
                              
                              <!-- Floating Badge -->
-                             <div class="absolute bottom-8 right-8 bg-white p-3 rounded-full shadow-lg animate-bounce">
-                                <i class="fas fa-code text-cyan-500 text-xl"></i>
+                             <div class="absolute bottom-6 right-6 md:bottom-8 md:right-8 bg-white p-2 md:p-3 rounded-full shadow-lg animate-bounce">
+                                <i class="fas fa-code text-cyan-500 text-base md:text-xl"></i>
                              </div>
                         </div>
                     </div>
@@ -413,7 +456,7 @@
                         <li><i class="fas fa-check-circle text-cyan-700 mr-2"></i> CTO, G-Bot Robotics Club</li>
                         <li><i class="fas fa-check-circle text-cyan-700 mr-2"></i> Lead Workshop Instructor (Drones)</li>
                         <li><i class="fas fa-check-circle text-cyan-700 mr-2"></i> Tech Coordinator, MueLearn</li>
-              </script>          </ul>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -440,7 +483,7 @@
                         <i class="fas fa-phone mr-2"></i> Call Me
                     </a>
                 </div>
-    </script>
+
                 <div class="mt-16 pt-8 border-t border-slate-700 flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
                     <p>&copy; 2025 Anirudh MK. Kerala, India.</p>
                     <div class="flex gap-4 mt-4 md:mt-0">
@@ -449,17 +492,46 @@
                         <a href="#" class="hover:text-white transition-colors"><i class="fab fa-twitter text-xl"></i></a>
                     </div>
                 </div>
-             </script>   </div>
+            </div>
         </div>
 
     </div>
 
-    <script href="index.js">
-
-    </script>
     <!-- ========================================= -->
     <!--          COPY TO script.js                -->
     <!-- ========================================= -->
-   
+    <script>
+        /* --- START JS FILE --- */
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('translate-x-full');
+        }
+
+        if (menuBtn) menuBtn.addEventListener('click', toggleMenu);
+        if (closeBtn) closeBtn.addEventListener('click', toggleMenu);
+
+        // Smooth Scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        /* --- END JS FILE --- */
+    </script>
 </body>
 </html>
