@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anirudh MK | Robotics & Fullstack Developer</title>
+    
+    <!-- Tailwind CSS (Keep this in your HTML head) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts (Keep this in your HTML head) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons (Keep this in your HTML head) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Manrope', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: '#0f172a',      // Slate 900
+                        cardBlue: '#bae6fd',  // Sky 200 (Hero Card)
+                        cardDark: '#1e293b',  // Slate 800 (Graph Card)
+                        cardBeige: '#ffedd5', // Orange 100 (Video Card)
+                        cardPurple: '#c7d2fe',// Indigo 200 (Metrics Card)
+                        brandAccent: '#0ea5e9' // Sky 500
+                    },
+                    borderRadius: {
+                        '3xl': '1.75rem',
+                        '4xl': '2.5rem',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- ========================================= -->
+    <!--          COPY TO style.css                -->
+    <!-- ========================================= -->
+    <style>
+        /* --- START CSS FILE --- */
+        
+        /* Custom Animations & Utilities */
+        .orbit-circle {
+            animation: spin 20s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .neumorphic-shadow {
+            box-shadow: 20px 20px 60px #0b111f, -20px -20px 60px #131d35;
+        }
+        
+        /* Hide scrollbar for clean horizontal scroll */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* --- END CSS FILE --- */
+    </style>
+</head>
+<body class="bg-dark text-slate-800 font-sans selection:bg-cyan-300 selection:text-slate-900">
+
+    <!-- Mobile Nav Overlay (Hidden by default) -->
+    <div id="mobile-menu" class="fixed inset-0 bg-dark/95 z-50 transform translate-x-full transition-transform duration-300 flex flex-col items-center justify-center space-y-8 text-white text-2xl">
+        <button id="close-menu" class="absolute top-6 right-6 text-white hover:text-cyan-400">
+            <i class="fas fa-times text-3xl"></i>
+        </button>
+        <a href="#about" class="hover:text-cyan-400 transition-colors" onclick="toggleMenu()">About</a>
+        <a href="#projects" class="hover:text-cyan-400 transition-colors" onclick="toggleMenu()">Projects</a>
+        <a href="#skills" class="hover:text-cyan-400 transition-colors" onclick="toggleMenu()">Skills</a>
+        <a href="#contact" class="hover:text-cyan-400 transition-colors" onclick="toggleMenu()">Contact</a>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 min-h-screen">
+        
+        <!-- MAIN GRID LAYOUT -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+            <!-- 1. HERO CARD (Spans full width top) -->
+            <div class="lg:col-span-12 bg-cardBlue rounded-4xl p-6 md:p-12 relative overflow-hidden shadow-lg transition-transform hover:scale-[1.005] duration-500">
+                <!-- Decorative Abstract Shapes -->
+                <div class="absolute -top-24 -right-24 w-96 h-96 bg-white/20 rounded-full blur-3xl"></div>
+                <div class="absolute top-1/2 left-1/4 w-64 h-64 bg-cyan-300/30 rounded-full blur-2xl"></div>
+
+                <!-- Navbar inside Hero -->
+                <nav class="flex justify-between items-center mb-16 relative z-10">
+                    <div class="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
+                        <span class="bg-slate-900 text-white w-10 h-10 flex items-center justify-center rounded-lg"><i class="fas fa-robot"></i></span>
+                        ANIRUDH MK.
+                    </div>
+                    
+                    <!-- Desktop Menu -->
+                    <div class="hidden md:flex items-center space-x-8 text-sm font-semibold tracking-wide text-slate-700">
+                        <a href="#projects" class="hover:text-black transition-colors">PROJECTS</a>
+                        <a href="#skills" class="hover:text-black transition-colors">SKILLS</a>
+                        <a href="#about" class="hover:text-black transition-colors">ABOUT</a>
+                        <a href="#contact" class="px-5 py-2.5 bg-slate-900 text-white rounded-full hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                            Download Resume
+                        </a>
+                    </div>
+
+                    <!-- Mobile Toggle -->
+                    <button id="menu-btn" class="md:hidden text-slate-900 text-2xl">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </nav>
+
+                <!-- Hero Content -->
+                <div class="grid md:grid-cols-2 gap-12 items-center relative z-10">
+                    <div class="space-y-6">
+                        <div class="inline-block px-3 py-1 bg-white/40 backdrop-blur-sm rounded-full text-xs font-bold tracking-wider text-slate-700 uppercase">
+                            Available for Hire
+                        </div>
+                        <h1 class="text-5xl md:text-7xl font-extrabold leading-[1.1] text-slate-900">
+                            Engineering <br>
+                            <span class="relative inline-block">
+                                Hardware
+                                <svg class="absolute w-full h-3 -bottom-1 left-0 text-slate-900" viewBox="0 0 200 9" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.00024 7.00004C50.0002 2.00005 150.003 -3.99996 198.003 3.00004" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+                            </span>
+                             & Soft<span class="text-slate-600">ware.</span>
+                        </h1>
+                        <p class="text-lg text-slate-700 max-w-md font-medium">
+                            I bridge the gap between code and machines. CS Student specializing in Robotics, Drones, and Full-Stack Development.
+                        </p>
+                        
+                        <div class="pt-4 flex flex-col sm:flex-row gap-4">
+                            <a href="#contact" class="group flex items-center gap-3 text-slate-900 font-bold text-lg border-b-2 border-slate-900 pb-1 w-fit hover:text-slate-700 hover:border-slate-700 transition-all">
+                                START A PROJECT 
+                                <i class="fas fa-arrow-right transform group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                            <a href="#projects" class="sm:hidden px-6 py-3 bg-white/50 rounded-xl font-bold text-slate-900 text-center">
+                                View Work
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Hero Visual (The Circle Portrait) -->
+                    <div class="relative flex justify-center md:justify-end">
+                        <!-- Orbital Rings -->
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] border border-slate-900/10 rounded-full"></div>
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[380px] h-[380px] border border-slate-900/10 rounded-full orbit-circle">
+                            <div class="absolute -top-1.5 left-1/2 w-3 h-3 bg-slate-900 rounded-full"></div>
+                        </div>
+
+                        <!-- Main Image Container -->
+                        <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white/30 shadow-2xl floating bg-slate-200 flex items-center justify-center">
+                             <!-- Using a robotic placeholder since no photo provided, fits the "Tech" theme -->
+                             <i class="fas fa-microchip text-9xl text-slate-400/50"></i>
+                             <div class="absolute inset-0 bg-gradient-to-tr from-slate-900/20 to-transparent"></div>
+                             
+                             <!-- Floating Badge -->
+                             <div class="absolute bottom-8 right-8 bg-white p-3 rounded-full shadow-lg animate-bounce">
+                                <i class="fas fa-code text-cyan-500 text-xl"></i>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. ANALYTICS CARD (Dark Theme - Education/GPA/Core) -->
+            <div class="col-span-12 md:col-span-6 lg:col-span-5 bg-cardDark rounded-4xl p-8 text-white relative overflow-hidden group">
+                <div class="flex justify-between items-start mb-8">
+                    <div>
+                        <span class="text-slate-400 text-sm font-medium uppercase tracking-wider">Education</span>
+                        <h3 class="text-2xl font-bold mt-1">GEC Wayanad</h3>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center group-hover:bg-cyan-500 transition-colors">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                </div>
+
+                <!-- Fake Graph Visualization using SVG -->
+                <div class="relative h-32 w-full mt-4">
+                    <svg class="w-full h-full" viewBox="0 0 300 100" preserveAspectRatio="none">
+                        <!-- Line -->
+                        <path d="M0,80 C50,80 50,40 100,40 C150,40 150,70 200,60 C250,50 250,20 300,30" 
+                              fill="none" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" class="drop-shadow-lg"/>
+                        <!-- Area -->
+                        <path d="M0,80 C50,80 50,40 100,40 C150,40 150,70 200,60 C250,50 250,20 300,30 V100 H0 Z" 
+                              fill="url(#gradient)" opacity="0.2"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#22d3ee;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#22d3ee;stop-opacity:0" />
+                            </linearGradient>
+                        </defs>
+                        <!-- Points -->
+                        <circle cx="100" cy="40" r="4" fill="#fff" />
+                        <circle cx="200" cy="60" r="4" fill="#fff" />
+                    </svg>
+                    <!-- Tooltip Style Label -->
+                    <div class="absolute top-0 left-1/3 bg-slate-700 px-3 py-1 rounded-lg text-xs font-bold shadow-lg transform -translate-x-1/2 -translate-y-2">
+                        B.Tech CSE '26
+                    </div>
+                </div>
+                
+                <div class="flex justify-between items-end mt-4">
+                    <div>
+                        <p class="text-3xl font-bold">6.88 <span class="text-sm text-slate-400 font-normal">CGPA</span></p>
+                    </div>
+                    <div class="text-right text-xs text-slate-400">
+                        Focus: Practical Systems
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. HIGHLIGHT CARD (Beige - Leadership) -->
+            <div class="col-span-12 md:col-span-6 lg:col-span-4 bg-cardBeige rounded-4xl p-8 relative group">
+                <div class="absolute top-6 right-6 flex -space-x-3">
+                    <div class="w-8 h-8 rounded-full bg-red-400 border-2 border-white"></div>
+                    <div class="w-8 h-8 rounded-full bg-blue-400 border-2 border-white"></div>
+                    <div class="w-8 h-8 rounded-full bg-green-400 border-2 border-white flex items-center justify-center text-[10px] font-bold text-white">+50</div>
+                </div>
+                
+                <div class="mt-2 mb-8">
+                    <button class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md group-hover:scale-110 transition-transform">
+                        <i class="fas fa-chalkboard-teacher text-orange-500"></i>
+                    </button>
+                </div>
+
+                <span class="text-orange-900/60 text-sm font-bold uppercase">Mentorship</span>
+                <h3 class="text-4xl font-extrabold text-orange-950 mt-2">10+</h3>
+                <p class="text-orange-900/80 font-medium mt-1">Workshops Conducted</p>
+                <p class="text-sm text-orange-800 mt-4 leading-relaxed">
+                    Taught robotics logic & drone assembly at GPC Meppadi & various schools.
+                </p>
+            </div>
+
+            <!-- 4. TECH STACK CARD (Purple - Skills) -->
+            <div id="skills" class="col-span-12 lg:col-span-3 bg-cardPurple rounded-4xl p-8 flex flex-col justify-between">
+                <div class="flex justify-between items-center">
+                    <div class="bg-indigo-500 text-white px-3 py-1 rounded-full text-xs font-bold">
+                        <i class="fas fa-bolt mr-1"></i> Core Stack
+                    </div>
+                    <i class="fas fa-arrow-up-right text-indigo-900"></i>
+                </div>
+
+                <div class="space-y-4 mt-8">
+                    <!-- Skill Pill -->
+                    <div class="bg-white/60 p-3 rounded-2xl flex items-center gap-3">
+                        <i class="fab fa-python text-xl text-yellow-600"></i>
+                        <div>
+                            <p class="font-bold text-sm text-indigo-950">Python & AI</p>
+                            <p class="text-[10px] text-indigo-800">YOLO, OpenCV</p>
+                        </div>
+                    </div>
+                    <!-- Skill Pill -->
+                    <div class="bg-white/60 p-3 rounded-2xl flex items-center gap-3">
+                        <i class="fas fa-microchip text-xl text-slate-700"></i>
+                        <div>
+                            <p class="font-bold text-sm text-indigo-950">IoT & Robotics</p>
+                            <p class="text-[10px] text-indigo-800">Arduino, ESP32, RPi</p>
+                        </div>
+                    </div>
+                     <!-- Skill Pill -->
+                     <div class="bg-white/60 p-3 rounded-2xl flex items-center gap-3">
+                        <i class="fas fa-laptop-code text-xl text-blue-600"></i>
+                        <div>
+                            <p class="font-bold text-sm text-indigo-950">Web Dev</p>
+                            <p class="text-[10px] text-indigo-800">HTML, CSS, JS</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- End Grid -->
+
+
+        <!-- SECTION: PROJECTS -->
+        <div id="projects" class="mt-24 mb-12">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-10 px-2">
+                <div>
+                    <h2 class="text-white text-4xl font-bold">Featured Projects</h2>
+                    <p class="text-slate-400 mt-2">Innovations in Hardware & Software</p>
+                </div>
+                <a href="https://github.com/animk5642" target="_blank" class="text-cyan-400 hover:text-cyan-300 mt-4 md:mt-0 flex items-center gap-2">
+                    View GitHub <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Project 1: Disaster Management Drone -->
+                <div class="bg-slate-800 rounded-3xl p-6 hover:bg-slate-700 transition-colors group cursor-pointer border border-slate-700 hover:border-cyan-500/30">
+                    <div class="h-48 bg-slate-900 rounded-2xl mb-6 relative overflow-hidden flex items-center justify-center">
+                        <i class="fas fa-drone text-6xl text-slate-600 group-hover:text-cyan-400 transition-colors"></i>
+                        <div class="absolute top-4 right-4 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded">NIDAR ENTRY</div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Dual-Drone Disaster System</h3>
+                    <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+                        A real-time person detection and supply delivery system for disaster zones using custom drone assembly and flight controllers.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-slate-900 text-slate-300 px-3 py-1 rounded-full border border-slate-600">Pixhawk</span>
+                        <span class="text-xs bg-slate-900 text-slate-300 px-3 py-1 rounded-full border border-slate-600">ArduPilot</span>
+                    </div>
+                </div>
+
+                <!-- Project 2: Sign Speak -->
+                <div class="bg-slate-800 rounded-3xl p-6 hover:bg-slate-700 transition-colors group cursor-pointer border border-slate-700 hover:border-purple-500/30">
+                    <div class="h-48 bg-slate-900 rounded-2xl mb-6 relative overflow-hidden flex items-center justify-center">
+                        <i class="fas fa-hands-asl-interpreting text-6xl text-slate-600 group-hover:text-purple-400 transition-colors"></i>
+                        <div class="absolute top-4 right-4 bg-purple-500 text-white text-[10px] font-bold px-2 py-1 rounded">FYP</div>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">"Sign Speak" Meeting App</h3>
+                    <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+                        Bi-directional communication app bridging gaps for the hearing impaired. Translates sign language to voice and vice-versa in real-time.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-slate-900 text-slate-300 px-3 py-1 rounded-full border border-slate-600">ML</span>
+                        <span class="text-xs bg-slate-900 text-slate-300 px-3 py-1 rounded-full border border-slate-600">Web Dev</span>
+                    </div>
+                </div>
+
+                <!-- Project 3: Robotic Arm -->
+                <div class="bg-slate-800 rounded-3xl p-6 hover:bg-slate-700 transition-colors group cursor-pointer border border-slate-700 hover:border-orange-500/30">
+                    <div class="h-48 bg-slate-900 rounded-2xl mb-6 relative overflow-hidden flex items-center justify-center">
+                        <i class="fas fa-robot text-6xl text-slate-600 group-hover:text-orange-400 transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Fruit Sorting Robotic Arm</h3>
+                    <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+                        Raspberry Pi-based arm using YOLO object detection to classify fruits and control servos for automated bin sorting.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-slate-900 text-slate-300 px-3 py-1 rounded-full border border-slate-600">Python</span>
+                        <span class="text-xs bg-slate-900 text-slate-300 px-3 py-1 rounded-full border border-slate-600">YOLO</span>
+                        <span class="text-xs bg-slate-900 text-slate-300 px-3 py-1 rounded-full border border-slate-600">RPi</span>
+                    </div>
+                </div>
+
+                <!-- Project 4: Gesture Hand -->
+                <div class="bg-slate-800 rounded-3xl p-6 hover:bg-slate-700 transition-colors group cursor-pointer border border-slate-700 hover:border-green-500/30">
+                    <div class="h-48 bg-slate-900 rounded-2xl mb-6 relative overflow-hidden flex items-center justify-center">
+                        <i class="fas fa-hand-paper text-6xl text-slate-600 group-hover:text-green-400 transition-colors"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Gesture-Controlled Hand</h3>
+                    <p class="text-slate-400 text-sm mb-4 line-clamp-3">
+                        Wireless robotic hand controlled by a sensory glove using NodeMCU. Maps flex sensor data to servo movements.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-slate-900 text-slate-300 px-3 py-1 rounded-full border border-slate-600">ESP8266</span>
+                        <span class="text-xs bg-slate-900 text-slate-300 px-3 py-1 rounded-full border border-slate-600">C++</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- SECTION: EXPERIENCE & ABOUT (Horizontal Layout) -->
+        <div id="about" class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-12">
+            
+            <!-- Experience -->
+            <div class="bg-white rounded-4xl p-8 lg:p-10">
+                <h2 class="text-3xl font-bold text-slate-900 mb-8">Experience</h2>
+                
+                <div class="relative border-l-2 border-slate-200 ml-3 space-y-10">
+                    <!-- Item 1 -->
+                    <div class="pl-8 relative">
+                        <div class="absolute -left-[9px] top-2 w-4 h-4 bg-cyan-400 rounded-full border-2 border-white"></div>
+                        <span class="text-sm font-bold text-slate-400 uppercase tracking-wide">Oct 2025 - Present</span>
+                        <h3 class="text-xl font-bold text-slate-900">Student Intern</h3>
+                        <p class="text-cyan-600 font-semibold mb-2">Botz Engineering Pvt Ltd</p>
+                        <p class="text-slate-600 text-sm">Working on embedded systems and robotics solutions. Prototyping hardware components and testing engineering designs.</p>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="pl-8 relative">
+                        <div class="absolute -left-[9px] top-2 w-4 h-4 bg-slate-300 rounded-full border-2 border-white"></div>
+                        <span class="text-sm font-bold text-slate-400 uppercase tracking-wide">May 2023</span>
+                        <h3 class="text-xl font-bold text-slate-900">Fullstack Dev Intern</h3>
+                        <p class="text-cyan-600 font-semibold mb-2">Qnayds LLP</p>
+                        <p class="text-slate-600 text-sm">Focused on web development fundamentals, gaining exposure to HTML, CSS, and software workflows.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Text -->
+            <div class="bg-cardBlue rounded-4xl p-8 lg:p-10 flex flex-col justify-center">
+                <h2 class="text-3xl font-bold text-slate-900 mb-6">About Me</h2>
+                <p class="text-slate-800 text-lg leading-relaxed mb-6">
+                    I am a final-year Computer Science student with a passion for building practical systems where software meets hardware. 
+                </p>
+                <p class="text-slate-700 mb-6">
+                    My journey involves deep diving into core concepts to ensure reliability, while staying adaptable to new technologies like <strong>AI, Drone Systems, and IoT</strong>. I also love sharing knowledge, having mentored students in robotics across Kerala.
+                </p>
+                <div class="bg-white/40 p-6 rounded-2xl">
+                    <h4 class="font-bold text-slate-900 mb-2">Leadership Roles</h4>
+                    <ul class="space-y-2 text-sm text-slate-800">
+                        <li><i class="fas fa-check-circle text-cyan-700 mr-2"></i> CTO, G-Bot Robotics Club</li>
+                        <li><i class="fas fa-check-circle text-cyan-700 mr-2"></i> Lead Workshop Instructor (Drones)</li>
+                        <li><i class="fas fa-check-circle text-cyan-700 mr-2"></i> Tech Coordinator, MueLearn</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION: FOOTER / CONTACT -->
+        <div id="contact" class="mt-6 mb-6">
+            <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-4xl p-8 md:p-16 text-center relative overflow-hidden">
+                <!-- Decorative BG -->
+                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-cyan-400 via-purple-400 to-orange-400"></div>
+                
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">Ready to build something amazing?</h2>
+                <p class="text-slate-400 text-lg mb-10 max-w-2xl mx-auto">
+                    I'm open to opportunities in Robotics, Embedded Systems, and Web Development. Let's connect!
+                </p>
+                
+                <div class="flex flex-col sm:flex-row justify-center gap-6">
+                    <a href="mailto:anirudhmk822@gmail.com" class="bg-cyan-400 text-slate-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-cyan-300 transition-colors shadow-lg hover:shadow-cyan-400/50">
+                        <i class="fas fa-envelope mr-2"></i> Email Me
+                    </a>
+                    <a href="https://linkedin.com/in/anirudh-m-k" target="_blank" class="bg-slate-700 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-slate-600 transition-colors">
+                        <i class="fab fa-linkedin mr-2"></i> LinkedIn
+                    </a>
+                    <a href="tel:+918547044716" class="bg-slate-700 text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-slate-600 transition-colors">
+                        <i class="fas fa-phone mr-2"></i> Call Me
+                    </a>
+                </div>
+
+                <div class="mt-16 pt-8 border-t border-slate-700 flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
+                    <p>&copy; 2025 Anirudh MK. Kerala, India.</p>
+                    <div class="flex gap-4 mt-4 md:mt-0">
+                        <a href="#" class="hover:text-white transition-colors"><i class="fab fa-github text-xl"></i></a>
+                        <a href="#" class="hover:text-white transition-colors"><i class="fab fa-instagram text-xl"></i></a>
+                        <a href="#" class="hover:text-white transition-colors"><i class="fab fa-twitter text-xl"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ========================================= -->
+    <!--          COPY TO script.js                -->
+    <!-- ========================================= -->
+    <script>
+        /* --- START JS FILE --- */
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const closeBtn = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('translate-x-full');
+        }
+
+        if (menuBtn) menuBtn.addEventListener('click', toggleMenu);
+        if (closeBtn) closeBtn.addEventListener('click', toggleMenu);
+
+        // Smooth Scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        /* --- END JS FILE --- */
+    </script>
+</body>
+</html>
